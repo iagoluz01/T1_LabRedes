@@ -1,0 +1,51 @@
+# Compiled Java files
+*.class
+
+# Package Files
+*.jar
+*.war
+*.ear
+
+# Build directories
+bin/
+target/
+build/
+dist/
+
+# IDE files
+.classpath
+.project
+.settings/
+.vscode/
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Eclipse
+.metadata
+.recommenders/
+
+# IntelliJ
+out/
+
+# VSCode
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+.gitkeep
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.bak
+
+# Dependencies (if using Maven)
+.m2/
