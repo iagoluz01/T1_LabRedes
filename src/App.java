@@ -26,8 +26,9 @@ public class App {
         System.out.println("📋 Testando " + domains.size() + " domínio(s)\n");
 
         // Testa cada domínio
+        int contador = 1;
         for (String domain : domains) {
-            System.out.println("🔍 Testando domínio: " + domain);
+            System.out.println("🔍 Testando domínio " + contador + ": " + domain);
             System.out.println("=".repeat(50));
 
             // Monta a query para o domínio
@@ -59,6 +60,7 @@ public class App {
                 }
             }
             System.out.println();
+            contador++;
         }
     }
 
