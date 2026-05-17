@@ -1,11 +1,15 @@
-# Adicione os domínios a testar, um por linha (máximo 10)
-www.google.com
-www.github.com
-www.stackoverflow.com
-www.wikipedia.org
-www.youtube.com
-www.amazon.com
-www.facebook.com
-www.twitter.com
-www.linkedin.com
-www.reddit.com
+# Domínios de teste — Trabalho 1 Lab Redes
+# Controle
+www.example.com
+www.pucrs.br
+# Filtros de segurança (malware/phishing)
+internetbadguys.com
+# Filtros familiares / redes sociais
+reddit.com
+tinder.com
+# Bloqueio judicial Brasil (Anatel)
+polymarket.com
+# Adicionais
+www.piratebay.org
+bet365.com
+xvideos.com

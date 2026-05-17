@@ -1,41 +1,63 @@
 import java.net.*;
 
+/**
+ * Cliente DNS sobre UDP (porta 53) — construção e envio manual de pacotes binários.
+ */
 public class DnsClient {
 
-    public static byte[] sendQuery(byte[] query, String dnsServer) throws Exception {
-        // Cria socket UDP
-        DatagramSocket socket = new DatagramSocket();
+    /** Último tempo de resposta registrado (ms) — disponível após cada sendQuery(). */
+    public static long lastResponseTimeMs = -1;
 
-        // Define timeout → evita travar se servidor não responder
+    /**
+     * Envia uma query DNS via UDP e retorna os bytes da resposta.
+     *
+     * @param query     bytes da query DNS
+     * @param dnsServer IP do servidor DNS
+     * @return bytes brutos da resposta
+     * @throws Exception em caso de timeout ou erro de rede
+     */
+    public static byte[] sendQuery(byte[] query, String dnsServer) throws Exception {
+        DatagramSocket socket = new DatagramSocket();
         socket.setSoTimeout(2000);
 
-        // Resolve o IP do servidor DNS (ex: 8.8.8.8)
         InetAddress address = InetAddress.getByName(dnsServer);
-
-        // Monta pacote UDP para envio
         DatagramPacket packet = new DatagramPacket(query, query.length, address, 53);
 
-        // Marca tempo antes de enviar (para medir latência)
         long start = System.currentTimeMillis();
+        socket.send(packet);
 
-        socket.send(packet); // envia query
-
-        // Buffer para resposta (DNS padrão cabe em 512 bytes)
-        byte[] buffer = new byte[512];
+        byte[] buffer = new byte[1024];
         DatagramPacket response = new DatagramPacket(buffer, buffer.length);
-
-        // Aguarda resposta
         socket.receive(response);
-
         long end = System.currentTimeMillis();
 
-        System.out.println("Tempo de resposta: " + (end - start) + " ms");
-
+        lastResponseTimeMs = end - start;
         socket.close();
 
-        // Retorna os dados recebidos
-        return response.getData();
+        // Retorna apenas os bytes efetivamente recebidos
+        byte[] data = new byte[response.getLength()];
+        System.arraycopy(buffer, 0, data, 0, response.getLength());
+        return data;
+    }
+
+    /**
+     * Envia query DNS e retorna um DnsResult já preenchido com IPs e tempo.
+     */
+    public static DnsResult query(String domain, String serverIp, String label) {
+        DnsResult result = new DnsResult(serverIp, label, domain, false);
+        try {
+            byte[] queryBytes = DnsQueryBuilder.buildQuery(domain);
+            byte[] responseBytes = sendQuery(queryBytes, serverIp);
+            result.responseTimeMs = lastResponseTimeMs;
+            result.rcode = DnsParser.getRcode(responseBytes);
+            result.ips = DnsParser.parseAllIPs(responseBytes);
+        } catch (java.net.SocketTimeoutException e) {
+            result.timeout = true;
+            result.errorMsg = "TIMEOUT";
+        } catch (Exception e) {
+            result.timeout = true;
+            result.errorMsg = e.getMessage();
+        }
+        return result;
     }
 }
-
-// teste de commit
