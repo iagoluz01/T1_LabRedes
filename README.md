@@ -20,6 +20,46 @@ Desenvolver uma ferramenta para análise de resolução DNS, organizada em três
 
 ---
 
+
+
+# Como Executar a Ferramenta
+
+A aplicação foi estruturada para permitir a execução em ambientes Windows tanto de forma manual quanto automatizada por scripts.
+
+---
+
+# Abordagem 1: Execução Manual (Prompt de Comando)
+
+1. Certifique-se de que o arquivo executável compilado `T1_LabRedes.jar` e o arquivo de configuração `dominios.txt` estejam no mesmo diretório.
+
+2. Abra o **Prompt de Comando (CMD)** do Windows na pasta correspondente.
+
+3. Execute a aplicação utilizando a Java Virtual Machine através do comando:
+
+```cmd
+java -jar T1_LabRedes.jar
+```
+
+---
+
+# Abordagem 2: Execução via Script (Atalho Rápido)
+
+Também é possível automatizar o processo utilizando os arquivos de lote inclusos.
+
+Para sistemas Windows, basta alterar o nome do arquivo de script fornecido de `run.sh` para `run.bat` e executá-lo diretamente com um duplo clique, o que disparará a aplicação de forma idêntica.
+
+---
+
+# Funcionamento da Aplicação
+
+O programa realizará varreduras sequenciais utilizando:
+
+- **UDP** na porta `53`
+- **DNS over TLS (DoT)** na porta `853`
+
+As métricas coletadas serão armazenadas localmente em um arquivo de saída estruturado contendo os resultados brutos das medições realizadas.
+
+
 # Parte 1 — Scanner DNS sobre UDP
 
 ## Comunicação DNS
