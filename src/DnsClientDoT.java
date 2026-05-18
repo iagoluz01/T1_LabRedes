@@ -2,7 +2,6 @@ import javax.net.ssl.*;
 import java.io.*;
 import java.net.*;
 import java.util.Collections;
-import java.util.List;
 
 /**
  * Cliente DNS over TLS (DoT) conforme RFC 7858.

@@ -1,4 +1,5 @@
 import java.util.*;
+import java.io.*;
 
 /**
  * Ferramenta de análise DNS — Trabalho 1 (Lab de Redes)
@@ -77,7 +78,13 @@ public class App {
     // Utilitários de formatação
     // =========================================================================
 
-    static void sep(char c, int n) { System.out.println(String.valueOf(c).repeat(n)); }
+    static String repeat(String s, int n) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < n; i++) sb.append(s);
+        return sb.toString();
+    }
+
+    static void sep(char c, int n) { System.out.println(repeat(String.valueOf(c), n)); }
     static void header(String title) {
         System.out.println();
         sep('=', 80);
@@ -92,7 +99,7 @@ public class App {
     static String pad(String s, int len) {
         if (s == null) s = "";
         if (s.length() >= len) return s.substring(0, len);
-        return s + " ".repeat(len - s.length());
+        return s + repeat(" ", len - s.length());
     }
 
     // =========================================================================
@@ -240,22 +247,31 @@ public class App {
     // =========================================================================
 
     public static void main(String[] args) throws Exception {
-        System.out.println();
-        sep('*', 80);
-        System.out.println("  ANÁLISE DE DNS: Censura, Desempenho e Privacidade");
-        System.out.println("  Trabalho 1 — Lab de Redes de Computadores");
-        sep('*', 80);
-        System.out.println("  Servidores configurados : " + SERVERS.length);
-        System.out.println("  Domínios de teste       : " + DOMAINS.length);
-        System.out.println("  Consultas de desempenho : " + PerformanceAnalyzer.NUM_QUERIES + " por servidor");
+        // Redireciona output para arquivo e console
+        DualOutput dualOutput = new DualOutput(System.out, "resultado.txt");
+        System.setOut(new PrintStream(dualOutput, true));
 
-        // Parte 1
-        runScanner();
-        runPerformance();
+        try {
+            System.out.println();
+            sep('*', 80);
+            System.out.println("  ANÁLISE DE DNS: Censura, Desempenho e Privacidade");
+            System.out.println("  Trabalho 1 — Lab de Redes de Computadores");
+            sep('*', 80);
+            System.out.println("  Servidores configurados : " + SERVERS.length);
+            System.out.println("  Domínios de teste       : " + DOMAINS.length);
+            System.out.println("  Consultas de desempenho : " + PerformanceAnalyzer.NUM_QUERIES + " por servidor");
 
-        // Parte 3 (Extra)
-        runDoT();
+            // Parte 1
+            runScanner();
+            runPerformance();
 
-        header("FIM DA ANÁLISE");
+            // Parte 3 (Extra)
+            runDoT();
+
+            header("FIM DA ANÁLISE");
+        } finally {
+            System.out.flush();
+            dualOutput.close();
+        }
     }
 }

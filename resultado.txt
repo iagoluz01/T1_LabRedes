@@ -1,0 +1,573 @@
+
+********************************************************************************
+  ANÁLISE DE DNS: Censura, Desempenho e Privacidade
+  Trabalho 1 — Lab de Redes de Computadores
+********************************************************************************
+  Servidores configurados : 19
+  Domínios de teste       : 9
+  Consultas de desempenho : 10 por servidor
+
+================================================================================
+  PARTE 1-A — SCANNER DNS MULTI-SERVIDOR (UDP)
+================================================================================
+
+  >>> Domínio: www.example.com
+--------------------------------------------------------------------------------
+  Consultando Google                 (8.8.8.8          ) ... NOERROR  [31 ms]
+  Consultando Google (sec)           (8.8.4.4          ) ... NOERROR  [31 ms]
+  Consultando Cloudflare             (1.1.1.1          ) ... NOERROR  [32 ms]
+  Consultando Cloudflare (sec)       (1.0.0.1          ) ... NOERROR  [31 ms]
+  Consultando Quad9 (sem filtro)     (9.9.9.10         ) ... NOERROR  [31 ms]
+  Consultando Verisign               (64.6.64.6        ) ... NOERROR  [141 ms]
+  Consultando Quad9                  (9.9.9.9          ) ... NOERROR  [31 ms]
+  Consultando OpenDNS                (208.67.222.222   ) ... NOERROR  [15 ms]
+  Consultando CleanBrowsing Sec      (185.228.168.9    ) ... NOERROR  [47 ms]
+  Consultando AdGuard DNS            (94.140.14.14     ) ... NOERROR  [282 ms]
+  Consultando Cloudflare Family      (1.1.1.3          ) ... NOERROR  [32 ms]
+  Consultando OpenDNS Family         (208.67.222.123   ) ... NOERROR  [15 ms]
+  Consultando CleanBrowsing Family   (185.228.168.168  ) ... NOERROR  [32 ms]
+  Consultando AdGuard Family         (94.140.14.15     ) ... NOERROR  [171 ms]
+  Consultando Comodo Secure          (8.26.56.26       ) ... NOERROR  [126 ms]
+  Consultando Control D              (76.76.2.0        ) ... NOERROR  [31 ms]
+  Consultando TIM Brasil             (189.40.100.100   ) ... TIMEOUT
+  Consultando Claro Brasil           (200.248.178.54   ) ... NOERROR  [109 ms]
+  Consultando Oi Brasil              (186.224.0.18     ) ... TIMEOUT
+
+  Servidor                IP Servidor        RCODE       Tempo     IPs Retornados        Bloqueio?
+--------------------------------------------------------------------------------------------------------------
+  Google                  8.8.8.8            NOERROR     31 ms     104.20.23.154, 172.66.147.243             OK
+  Google (sec)            8.8.4.4            NOERROR     31 ms     104.20.23.154, 172.66.147.243             OK
+  Cloudflare              1.1.1.1            NOERROR     32 ms     172.66.147.243, 104.20.23.154             OK
+  Cloudflare (sec)        1.0.0.1            NOERROR     31 ms     172.66.147.243, 104.20.23.154             OK
+  Quad9 (sem filtro)      9.9.9.10           NOERROR     31 ms     104.20.23.154, 172.66.147.243             OK
+  Verisign                64.6.64.6          NOERROR     141 ms    104.20.23.154, 172.66.147.243             OK
+  Quad9                   9.9.9.9            NOERROR     31 ms     104.20.23.154, 172.66.147.243             OK
+  OpenDNS                 208.67.222.222     NOERROR     15 ms     104.20.23.154, 172.66.147.243             OK
+  CleanBrowsing Sec       185.228.168.9      NOERROR     47 ms     172.66.147.243, 104.20.23.154             OK
+  AdGuard DNS             94.140.14.14       NOERROR     282 ms    104.20.23.154, 172.66.147.243             OK
+  Cloudflare Family       1.1.1.3            NOERROR     32 ms     172.66.147.243, 104.20.23.154             OK
+  OpenDNS Family          208.67.222.123     NOERROR     15 ms     104.20.23.154, 172.66.147.243             OK
+  CleanBrowsing Family    185.228.168.168    NOERROR     32 ms     104.20.23.154, 172.66.147.243             OK
+  AdGuard Family          94.140.14.15       NOERROR     171 ms    104.20.23.154, 172.66.147.243             OK
+  Comodo Secure           8.26.56.26         NOERROR     126 ms    172.66.147.243, 104.20.23.154             OK
+  Control D               76.76.2.0          NOERROR     31 ms     172.66.147.243, 104.20.23.154             OK
+  TIM Brasil              189.40.100.100     N/A         -         -                                         ? TIMEOUT
+  Claro Brasil            200.248.178.54     NOERROR     109 ms    172.66.147.243, 104.20.23.154             OK
+  Oi Brasil               186.224.0.18       N/A         -         -                                         ? TIMEOUT
+
+  IP de Consenso (servidores sem filtro): 172.66.147.243
+  Servidores com bloqueio/anomalia detectada: 2 / 19
+
+  >>> Domínio: www.pucrs.br
+--------------------------------------------------------------------------------
+  Consultando Google                 (8.8.8.8          ) ... NOERROR  [31 ms]
+  Consultando Google (sec)           (8.8.4.4          ) ... NOERROR  [16 ms]
+  Consultando Cloudflare             (1.1.1.1          ) ... NOERROR  [41 ms]
+  Consultando Cloudflare (sec)       (1.0.0.1          ) ... NOERROR  [36 ms]
+  Consultando Quad9 (sem filtro)     (9.9.9.10         ) ... NOERROR  [47 ms]
+  Consultando Verisign               (64.6.64.6        ) ... NOERROR  [232 ms]
+  Consultando Quad9                  (9.9.9.9          ) ... NOERROR  [50 ms]
+  Consultando OpenDNS                (208.67.222.222   ) ... NOERROR  [50 ms]
+  Consultando CleanBrowsing Sec      (185.228.168.9    ) ... NOERROR  [17 ms]
+  Consultando AdGuard DNS            (94.140.14.14     ) ... NOERROR  [266 ms]
+  Consultando Cloudflare Family      (1.1.1.3          ) ... NOERROR  [42 ms]
+  Consultando OpenDNS Family         (208.67.222.123   ) ... NOERROR  [26 ms]
+  Consultando CleanBrowsing Family   (185.228.168.168  ) ... NOERROR  [36 ms]
+  Consultando AdGuard Family         (94.140.14.15     ) ... NOERROR  [131 ms]
+  Consultando Comodo Secure          (8.26.56.26       ) ... NOERROR  [115 ms]
+  Consultando Control D              (76.76.2.0        ) ... NOERROR  [18 ms]
+  Consultando TIM Brasil             (189.40.100.100   ) ... TIMEOUT
+  Consultando Claro Brasil           (200.248.178.54   ) ... NOERROR  [121 ms]
+  Consultando Oi Brasil              (186.224.0.18     ) ... TIMEOUT
+
+  Servidor                IP Servidor        RCODE       Tempo     IPs Retornados        Bloqueio?
+--------------------------------------------------------------------------------------------------------------
+  Google                  8.8.8.8            NOERROR     31 ms     104.18.21.134, 104.18.20.134              OK
+  Google (sec)            8.8.4.4            NOERROR     16 ms     104.18.20.134, 104.18.21.134              OK
+  Cloudflare              1.1.1.1            NOERROR     41 ms     104.18.21.134, 104.18.20.134              OK
+  Cloudflare (sec)        1.0.0.1            NOERROR     36 ms     104.18.21.134, 104.18.20.134              OK
+  Quad9 (sem filtro)      9.9.9.10           NOERROR     47 ms     104.18.20.134, 104.18.21.134              OK
+  Verisign                64.6.64.6          NOERROR     232 ms    104.18.20.134, 104.18.21.134              OK
+  Quad9                   9.9.9.9            NOERROR     50 ms     104.18.21.134, 104.18.20.134              OK
+  OpenDNS                 208.67.222.222     NOERROR     50 ms     104.18.21.134, 104.18.20.134              OK
+  CleanBrowsing Sec       185.228.168.9      NOERROR     17 ms     104.18.21.134, 104.18.20.134              OK
+  AdGuard DNS             94.140.14.14       NOERROR     266 ms    104.18.20.134, 104.18.21.134              OK
+  Cloudflare Family       1.1.1.3            NOERROR     42 ms     104.18.20.134, 104.18.21.134              OK
+  OpenDNS Family          208.67.222.123     NOERROR     26 ms     104.18.21.134, 104.18.20.134              OK
+  CleanBrowsing Family    185.228.168.168    NOERROR     36 ms     104.18.20.134, 104.18.21.134              OK
+  AdGuard Family          94.140.14.15       NOERROR     131 ms    104.18.21.134, 104.18.20.134              OK
+  Comodo Secure           8.26.56.26         NOERROR     115 ms    104.18.21.134, 104.18.20.134              OK
+  Control D               76.76.2.0          NOERROR     18 ms     104.18.20.134, 104.18.21.134              OK
+  TIM Brasil              189.40.100.100     N/A         -         -                                         ? TIMEOUT
+  Claro Brasil            200.248.178.54     NOERROR     121 ms    104.18.21.134, 104.18.20.134              OK
+  Oi Brasil               186.224.0.18       N/A         -         -                                         ? TIMEOUT
+
+  IP de Consenso (servidores sem filtro): 104.18.20.134
+  Servidores com bloqueio/anomalia detectada: 2 / 19
+
+  >>> Domínio: internetbadguys.com
+--------------------------------------------------------------------------------
+  Consultando Google                 (8.8.8.8          ) ... NOERROR  [43 ms]
+  Consultando Google (sec)           (8.8.4.4          ) ... NOERROR  [28 ms]
+  Consultando Cloudflare             (1.1.1.1          ) ... NOERROR  [43 ms]
+  Consultando Cloudflare (sec)       (1.0.0.1          ) ... NOERROR  [24 ms]
+  Consultando Quad9 (sem filtro)     (9.9.9.10         ) ... NOERROR  [44 ms]
+  Consultando Verisign               (64.6.64.6        ) ... NOERROR  [133 ms]
+  Consultando Quad9                  (9.9.9.9          ) ... NOERROR  [41 ms]
+  Consultando OpenDNS                (208.67.222.222   ) ... NOERROR  [23 ms]
+  Consultando CleanBrowsing Sec      (185.228.168.9    ) ... NXDOMAIN  [31 ms]
+  Consultando AdGuard DNS            (94.140.14.14     ) ... NOERROR  [879 ms]
+  Consultando Cloudflare Family      (1.1.1.3          ) ... NOERROR  [36 ms]
+  Consultando OpenDNS Family         (208.67.222.123   ) ... NOERROR  [22 ms]
+  Consultando CleanBrowsing Family   (185.228.168.168  ) ... NXDOMAIN  [25 ms]
+  Consultando AdGuard Family         (94.140.14.15     ) ... NOERROR  [824 ms]
+  Consultando Comodo Secure          (8.26.56.26       ) ... NOERROR  [130 ms]
+  Consultando Control D              (76.76.2.0        ) ... NOERROR  [32 ms]
+  Consultando TIM Brasil             (189.40.100.100   ) ... TIMEOUT
+  Consultando Claro Brasil           (200.248.178.54   ) ... NOERROR  [17 ms]
+  Consultando Oi Brasil              (186.224.0.18     ) ... TIMEOUT
+
+  Servidor                IP Servidor        RCODE       Tempo     IPs Retornados        Bloqueio?
+--------------------------------------------------------------------------------------------------------------
+  Google                  8.8.8.8            NOERROR     43 ms     146.112.59.12                             OK
+  Google (sec)            8.8.4.4            NOERROR     28 ms     146.112.59.12                             OK
+  Cloudflare              1.1.1.1            NOERROR     43 ms     146.112.59.12                             OK
+  Cloudflare (sec)        1.0.0.1            NOERROR     24 ms     146.112.59.12                             OK
+  Quad9 (sem filtro)      9.9.9.10           NOERROR     44 ms     146.112.59.12                             OK
+  Verisign                64.6.64.6          NOERROR     133 ms    146.112.59.12                             OK
+  Quad9                   9.9.9.9            NOERROR     41 ms     146.112.59.12                             OK
+  OpenDNS                 208.67.222.222     NOERROR     23 ms     146.112.61.108                            ? IP_DIVERGENTE
+  CleanBrowsing Sec       185.228.168.9      NXDOMAIN    31 ms     -                                         ? NXDOMAIN
+  AdGuard DNS             94.140.14.14       NOERROR     879 ms    146.112.59.12                             OK
+  Cloudflare Family       1.1.1.3            NOERROR     36 ms     146.112.59.12                             OK
+  OpenDNS Family          208.67.222.123     NOERROR     22 ms     146.112.61.108                            ? IP_DIVERGENTE
+  CleanBrowsing Family    185.228.168.168    NXDOMAIN    25 ms     -                                         ? NXDOMAIN
+  AdGuard Family          94.140.14.15       NOERROR     824 ms    146.112.59.12                             OK
+  Comodo Secure           8.26.56.26         NOERROR     130 ms    146.112.59.12                             OK
+  Control D               76.76.2.0          NOERROR     32 ms     146.112.59.12                             OK
+  TIM Brasil              189.40.100.100     N/A         -         -                                         ? TIMEOUT
+  Claro Brasil            200.248.178.54     NOERROR     17 ms     146.112.59.12                             OK
+  Oi Brasil               186.224.0.18       N/A         -         -                                         ? TIMEOUT
+
+  IP de Consenso (servidores sem filtro): 146.112.59.12
+  Servidores com bloqueio/anomalia detectada: 6 / 19
+
+  >>> Domínio: reddit.com
+--------------------------------------------------------------------------------
+  Consultando Google                 (8.8.8.8          ) ... NOERROR  [22 ms]
+  Consultando Google (sec)           (8.8.4.4          ) ... NOERROR  [23 ms]
+  Consultando Cloudflare             (1.1.1.1          ) ... NOERROR  [19 ms]
+  Consultando Cloudflare (sec)       (1.0.0.1          ) ... NOERROR  [22 ms]
+  Consultando Quad9 (sem filtro)     (9.9.9.10         ) ... NOERROR  [46 ms]
+  Consultando Verisign               (64.6.64.6        ) ... NOERROR  [130 ms]
+  Consultando Quad9                  (9.9.9.9          ) ... NOERROR  [33 ms]
+  Consultando OpenDNS                (208.67.222.222   ) ... NOERROR  [33 ms]
+  Consultando CleanBrowsing Sec      (185.228.168.9    ) ... NOERROR  [17 ms]
+  Consultando AdGuard DNS            (94.140.14.14     ) ... NOERROR  [581 ms]
+  Consultando Cloudflare Family      (1.1.1.3          ) ... NOERROR  [15 ms]
+  Consultando OpenDNS Family         (208.67.222.123   ) ... NOERROR  [31 ms]
+  Consultando CleanBrowsing Family   (185.228.168.168  ) ... NXDOMAIN  [16 ms]
+  Consultando AdGuard Family         (94.140.14.15     ) ... NOERROR  [541 ms]
+  Consultando Comodo Secure          (8.26.56.26       ) ... NOERROR  [137 ms]
+  Consultando Control D              (76.76.2.0        ) ... NOERROR  [26 ms]
+  Consultando TIM Brasil             (189.40.100.100   ) ... TIMEOUT
+  Consultando Claro Brasil           (200.248.178.54   ) ... NOERROR  [91 ms]
+  Consultando Oi Brasil              (186.224.0.18     ) ... TIMEOUT
+
+  Servidor                IP Servidor        RCODE       Tempo     IPs Retornados        Bloqueio?
+--------------------------------------------------------------------------------------------------------------
+  Google                  8.8.8.8            NOERROR     22 ms     151.101.129.140, 151.101.1.140, 151.1...  OK
+  Google (sec)            8.8.4.4            NOERROR     23 ms     151.101.129.140, 151.101.65.140, 151....  OK
+  Cloudflare              1.1.1.1            NOERROR     19 ms     151.101.193.140, 151.101.1.140, 151.1...  OK
+  Cloudflare (sec)        1.0.0.1            NOERROR     22 ms     151.101.129.140, 151.101.193.140, 151...  OK
+  Quad9 (sem filtro)      9.9.9.10           NOERROR     46 ms     151.101.1.140, 151.101.65.140, 151.10...  OK
+  Verisign                64.6.64.6          NOERROR     130 ms    151.101.65.140, 151.101.1.140, 151.10...  OK
+  Quad9                   9.9.9.9            NOERROR     33 ms     151.101.193.140, 151.101.65.140, 151....  OK
+  OpenDNS                 208.67.222.222     NOERROR     33 ms     151.101.65.140, 151.101.129.140, 151....  OK
+  CleanBrowsing Sec       185.228.168.9      NOERROR     17 ms     151.101.65.140, 151.101.193.140, 151....  OK
+  AdGuard DNS             94.140.14.14       NOERROR     581 ms    151.101.193.140, 151.101.129.140, 151...  OK
+  Cloudflare Family       1.1.1.3            NOERROR     15 ms     151.101.193.140, 151.101.129.140, 151...  OK
+  OpenDNS Family          208.67.222.123     NOERROR     31 ms     151.101.1.140, 151.101.65.140, 151.10...  OK
+  CleanBrowsing Family    185.228.168.168    NXDOMAIN    16 ms     -                                         ? NXDOMAIN
+  AdGuard Family          94.140.14.15       NOERROR     541 ms    151.101.129.140, 151.101.65.140, 151....  OK
+  Comodo Secure           8.26.56.26         NOERROR     137 ms    151.101.193.140, 151.101.129.140, 151...  OK
+  Control D               76.76.2.0          NOERROR     26 ms     151.101.193.140, 151.101.129.140, 151...  OK
+  TIM Brasil              189.40.100.100     N/A         -         -                                         ? TIMEOUT
+  Claro Brasil            200.248.178.54     NOERROR     91 ms     151.101.193.140, 151.101.129.140, 151...  OK
+  Oi Brasil               186.224.0.18       N/A         -         -                                         ? TIMEOUT
+
+  IP de Consenso (servidores sem filtro): 151.101.193.140
+  Servidores com bloqueio/anomalia detectada: 3 / 19
+
+  >>> Domínio: tinder.com
+--------------------------------------------------------------------------------
+  Consultando Google                 (8.8.8.8          ) ... NOERROR  [32 ms]
+  Consultando Google (sec)           (8.8.4.4          ) ... NOERROR  [31 ms]
+  Consultando Cloudflare             (1.1.1.1          ) ... NOERROR  [31 ms]
+  Consultando Cloudflare (sec)       (1.0.0.1          ) ... NOERROR  [26 ms]
+  Consultando Quad9 (sem filtro)     (9.9.9.10         ) ... NOERROR  [58 ms]
+  Consultando Verisign               (64.6.64.6        ) ... NOERROR  [228 ms]
+  Consultando Quad9                  (9.9.9.9          ) ... NOERROR  [62 ms]
+  Consultando OpenDNS                (208.67.222.222   ) ... NOERROR  [47 ms]
+  Consultando CleanBrowsing Sec      (185.228.168.9    ) ... NOERROR  [31 ms]
+  Consultando AdGuard DNS            (94.140.14.14     ) ... NOERROR  [134 ms]
+  Consultando Cloudflare Family      (1.1.1.3          ) ... NOERROR  [22 ms]
+  Consultando OpenDNS Family         (208.67.222.123   ) ... NOERROR  [33 ms]
+  Consultando CleanBrowsing Family   (185.228.168.168  ) ... NXDOMAIN  [13 ms]
+  Consultando AdGuard Family         (94.140.14.15     ) ... NOERROR  [142 ms]
+  Consultando Comodo Secure          (8.26.56.26       ) ... NOERROR  [156 ms]
+  Consultando Control D              (76.76.2.0        ) ... NOERROR  [15 ms]
+  Consultando TIM Brasil             (189.40.100.100   ) ... TIMEOUT
+  Consultando Claro Brasil           (200.248.178.54   ) ... NOERROR  [199 ms]
+  Consultando Oi Brasil              (186.224.0.18     ) ... TIMEOUT
+
+  Servidor                IP Servidor        RCODE       Tempo     IPs Retornados        Bloqueio?
+--------------------------------------------------------------------------------------------------------------
+  Google                  8.8.8.8            NOERROR     32 ms     52.84.150.55, 52.84.150.39, 52.84.150...  OK
+  Google (sec)            8.8.4.4            NOERROR     31 ms     52.84.150.54, 52.84.150.60, 52.84.150...  OK
+  Cloudflare              1.1.1.1            NOERROR     31 ms     52.84.150.54, 52.84.150.60, 52.84.150...  OK
+  Cloudflare (sec)        1.0.0.1            NOERROR     26 ms     52.84.150.39, 52.84.150.55, 52.84.150...  OK
+  Quad9 (sem filtro)      9.9.9.10           NOERROR     58 ms     52.84.150.54, 52.84.150.39, 52.84.150...  OK
+  Verisign                64.6.64.6          NOERROR     228 ms    52.84.150.60, 52.84.150.55, 52.84.150...  OK
+  Quad9                   9.9.9.9            NOERROR     62 ms     52.84.150.55, 52.84.150.60, 52.84.150...  OK
+  OpenDNS                 208.67.222.222     NOERROR     47 ms     52.84.150.54, 52.84.150.55, 52.84.150...  OK
+  CleanBrowsing Sec       185.228.168.9      NOERROR     31 ms     52.84.150.60, 52.84.150.55, 52.84.150...  OK
+  AdGuard DNS             94.140.14.14       NOERROR     134 ms    52.84.150.54, 52.84.150.39, 52.84.150...  OK
+  Cloudflare Family       1.1.1.3            NOERROR     22 ms     52.84.150.39, 52.84.150.55, 52.84.150...  OK
+  OpenDNS Family          208.67.222.123     NOERROR     33 ms     52.84.150.54, 52.84.150.55, 52.84.150...  OK
+  CleanBrowsing Family    185.228.168.168    NXDOMAIN    13 ms     -                                         ? NXDOMAIN
+  AdGuard Family          94.140.14.15       NOERROR     142 ms    94.140.14.35                              ? IP_DIVERGENTE
+  Comodo Secure           8.26.56.26         NOERROR     156 ms    52.84.150.60, 52.84.150.55, 52.84.150...  OK
+  Control D               76.76.2.0          NOERROR     15 ms     52.84.150.54, 52.84.150.55, 52.84.150...  OK
+  TIM Brasil              189.40.100.100     N/A         -         -                                         ? TIMEOUT
+  Claro Brasil            200.248.178.54     NOERROR     199 ms    52.84.150.55, 52.84.150.60, 52.84.150...  OK
+  Oi Brasil               186.224.0.18       N/A         -         -                                         ? TIMEOUT
+
+  IP de Consenso (servidores sem filtro): 52.84.150.55
+  Servidores com bloqueio/anomalia detectada: 4 / 19
+
+  >>> Domínio: polymarket.com
+--------------------------------------------------------------------------------
+  Consultando Google                 (8.8.8.8          ) ... NOERROR  [31 ms]
+  Consultando Google (sec)           (8.8.4.4          ) ... NOERROR  [15 ms]
+  Consultando Cloudflare             (1.1.1.1          ) ... NOERROR  [32 ms]
+  Consultando Cloudflare (sec)       (1.0.0.1          ) ... NOERROR  [25 ms]
+  Consultando Quad9 (sem filtro)     (9.9.9.10         ) ... NOERROR  [47 ms]
+  Consultando Verisign               (64.6.64.6        ) ... NOERROR  [140 ms]
+  Consultando Quad9                  (9.9.9.9          ) ... NOERROR  [63 ms]
+  Consultando OpenDNS                (208.67.222.222   ) ... NOERROR  [31 ms]
+  Consultando CleanBrowsing Sec      (185.228.168.9    ) ... NOERROR  [16 ms]
+  Consultando AdGuard DNS            (94.140.14.14     ) ... NOERROR  [140 ms]
+  Consultando Cloudflare Family      (1.1.1.3          ) ... NOERROR  [17 ms]
+  Consultando OpenDNS Family         (208.67.222.123   ) ... NOERROR  [32 ms]
+  Consultando CleanBrowsing Family   (185.228.168.168  ) ... NOERROR  [31 ms]
+  Consultando AdGuard Family         (94.140.14.15     ) ... NOERROR  [117 ms]
+  Consultando Comodo Secure          (8.26.56.26       ) ... NOERROR  [140 ms]
+  Consultando Control D              (76.76.2.0        ) ... NOERROR  [31 ms]
+  Consultando TIM Brasil             (189.40.100.100   ) ... TIMEOUT
+  Consultando Claro Brasil           (200.248.178.54   ) ... NOERROR  [62 ms]
+  Consultando Oi Brasil              (186.224.0.18     ) ... TIMEOUT
+
+  Servidor                IP Servidor        RCODE       Tempo     IPs Retornados        Bloqueio?
+--------------------------------------------------------------------------------------------------------------
+  Google                  8.8.8.8            NOERROR     31 ms     64.239.109.1                              OK
+  Google (sec)            8.8.4.4            NOERROR     15 ms     64.239.109.1                              OK
+  Cloudflare              1.1.1.1            NOERROR     32 ms     64.239.109.1                              OK
+  Cloudflare (sec)        1.0.0.1            NOERROR     25 ms     64.239.109.1                              OK
+  Quad9 (sem filtro)      9.9.9.10           NOERROR     47 ms     64.239.109.1                              OK
+  Verisign                64.6.64.6          NOERROR     140 ms    64.239.109.1                              OK
+  Quad9                   9.9.9.9            NOERROR     63 ms     64.239.109.1                              OK
+  OpenDNS                 208.67.222.222     NOERROR     31 ms     64.239.109.1                              OK
+  CleanBrowsing Sec       185.228.168.9      NOERROR     16 ms     64.239.109.1                              OK
+  AdGuard DNS             94.140.14.14       NOERROR     140 ms    64.239.109.1                              OK
+  Cloudflare Family       1.1.1.3            NOERROR     17 ms     64.239.109.1                              OK
+  OpenDNS Family          208.67.222.123     NOERROR     32 ms     64.239.109.1                              OK
+  CleanBrowsing Family    185.228.168.168    NOERROR     31 ms     64.239.109.1                              OK
+  AdGuard Family          94.140.14.15       NOERROR     117 ms    64.239.109.1                              OK
+  Comodo Secure           8.26.56.26         NOERROR     140 ms    64.239.109.1                              OK
+  Control D               76.76.2.0          NOERROR     31 ms     64.239.109.1                              OK
+  TIM Brasil              189.40.100.100     N/A         -         -                                         ? TIMEOUT
+  Claro Brasil            200.248.178.54     NOERROR     62 ms     64.239.109.1                              OK
+  Oi Brasil               186.224.0.18       N/A         -         -                                         ? TIMEOUT
+
+  IP de Consenso (servidores sem filtro): 64.239.109.1
+  Servidores com bloqueio/anomalia detectada: 2 / 19
+
+  >>> Domínio: www.piratebay.org
+--------------------------------------------------------------------------------
+  Consultando Google                 (8.8.8.8          ) ... NOERROR  [31 ms]
+  Consultando Google (sec)           (8.8.4.4          ) ... NOERROR  [31 ms]
+  Consultando Cloudflare             (1.1.1.1          ) ... NOERROR  [16 ms]
+  Consultando Cloudflare (sec)       (1.0.0.1          ) ... NOERROR  [31 ms]
+  Consultando Quad9 (sem filtro)     (9.9.9.10         ) ... NOERROR  [47 ms]
+  Consultando Verisign               (64.6.64.6        ) ... NOERROR  [156 ms]
+  Consultando Quad9                  (9.9.9.9          ) ... NOERROR  [47 ms]
+  Consultando OpenDNS                (208.67.222.222   ) ... NOERROR  [47 ms]
+  Consultando CleanBrowsing Sec      (185.228.168.9    ) ... NOERROR  [31 ms]
+  Consultando AdGuard DNS            (94.140.14.14     ) ... NOERROR  [345 ms]
+  Consultando Cloudflare Family      (1.1.1.3          ) ... NOERROR  [17 ms]
+  Consultando OpenDNS Family         (208.67.222.123   ) ... NOERROR  [30 ms]
+  Consultando CleanBrowsing Family   (185.228.168.168  ) ... NOERROR  [32 ms]
+  Consultando AdGuard Family         (94.140.14.15     ) ... TIMEOUT
+  Consultando Comodo Secure          (8.26.56.26       ) ... NOERROR  [156 ms]
+  Consultando Control D              (76.76.2.0        ) ... NOERROR  [219 ms]
+  Consultando TIM Brasil             (189.40.100.100   ) ... TIMEOUT
+  Consultando Claro Brasil           (200.248.178.54   ) ... NOERROR  [203 ms]
+  Consultando Oi Brasil              (186.224.0.18     ) ... TIMEOUT
+
+  Servidor                IP Servidor        RCODE       Tempo     IPs Retornados        Bloqueio?
+--------------------------------------------------------------------------------------------------------------
+  Google                  8.8.8.8            NOERROR     31 ms     104.21.50.243, 172.67.215.3               OK
+  Google (sec)            8.8.4.4            NOERROR     31 ms     172.67.215.3, 104.21.50.243               OK
+  Cloudflare              1.1.1.1            NOERROR     16 ms     172.67.215.3, 104.21.50.243               OK
+  Cloudflare (sec)        1.0.0.1            NOERROR     31 ms     104.21.50.243, 172.67.215.3               OK
+  Quad9 (sem filtro)      9.9.9.10           NOERROR     47 ms     172.67.215.3, 104.21.50.243               OK
+  Verisign                64.6.64.6          NOERROR     156 ms    172.67.215.3, 104.21.50.243               OK
+  Quad9                   9.9.9.9            NOERROR     47 ms     104.21.50.243, 172.67.215.3               OK
+  OpenDNS                 208.67.222.222     NOERROR     47 ms     104.21.50.243, 172.67.215.3               OK
+  CleanBrowsing Sec       185.228.168.9      NOERROR     31 ms     172.67.215.3, 104.21.50.243               OK
+  AdGuard DNS             94.140.14.14       NOERROR     345 ms    104.21.50.243, 172.67.215.3               OK
+  Cloudflare Family       1.1.1.3            NOERROR     17 ms     0.0.0.0                                   ? NULL_IP
+  OpenDNS Family          208.67.222.123     NOERROR     30 ms     104.21.50.243, 172.67.215.3               OK
+  CleanBrowsing Family    185.228.168.168    NOERROR     32 ms     104.21.50.243, 172.67.215.3               OK
+  AdGuard Family          94.140.14.15       N/A         -         -                                         ? TIMEOUT
+  Comodo Secure           8.26.56.26         NOERROR     156 ms    172.67.215.3, 104.21.50.243               OK
+  Control D               76.76.2.0          NOERROR     219 ms    172.67.215.3, 104.21.50.243               OK
+  TIM Brasil              189.40.100.100     N/A         -         -                                         ? TIMEOUT
+  Claro Brasil            200.248.178.54     NOERROR     203 ms    104.21.50.243, 172.67.215.3               OK
+  Oi Brasil               186.224.0.18       N/A         -         -                                         ? TIMEOUT
+
+  IP de Consenso (servidores sem filtro): 172.67.215.3
+  Servidores com bloqueio/anomalia detectada: 4 / 19
+
+  >>> Domínio: bet365.com
+--------------------------------------------------------------------------------
+  Consultando Google                 (8.8.8.8          ) ... NOERROR  [31 ms]
+  Consultando Google (sec)           (8.8.4.4          ) ... NOERROR  [16 ms]
+  Consultando Cloudflare             (1.1.1.1          ) ... NOERROR  [31 ms]
+  Consultando Cloudflare (sec)       (1.0.0.1          ) ... NOERROR  [15 ms]
+  Consultando Quad9 (sem filtro)     (9.9.9.10         ) ... NOERROR  [35 ms]
+  Consultando Verisign               (64.6.64.6        ) ... NOERROR  [172 ms]
+  Consultando Quad9                  (9.9.9.9          ) ... NOERROR  [31 ms]
+  Consultando OpenDNS                (208.67.222.222   ) ... NOERROR  [31 ms]
+  Consultando CleanBrowsing Sec      (185.228.168.9    ) ... NOERROR  [32 ms]
+  Consultando AdGuard DNS            (94.140.14.14     ) ... NOERROR  [125 ms]
+  Consultando Cloudflare Family      (1.1.1.3          ) ... NOERROR  [31 ms]
+  Consultando OpenDNS Family         (208.67.222.123   ) ... NOERROR  [16 ms]
+  Consultando CleanBrowsing Family   (185.228.168.168  ) ... NOERROR  [31 ms]
+  Consultando AdGuard Family         (94.140.14.15     ) ... NOERROR  [125 ms]
+  Consultando Comodo Secure          (8.26.56.26       ) ... NOERROR  [140 ms]
+  Consultando Control D              (76.76.2.0        ) ... NOERROR  [16 ms]
+  Consultando TIM Brasil             (189.40.100.100   ) ... TIMEOUT
+  Consultando Claro Brasil           (200.248.178.54   ) ... NOERROR  [31 ms]
+  Consultando Oi Brasil              (186.224.0.18     ) ... TIMEOUT
+
+  Servidor                IP Servidor        RCODE       Tempo     IPs Retornados        Bloqueio?
+--------------------------------------------------------------------------------------------------------------
+  Google                  8.8.8.8            NOERROR     31 ms     5.226.179.10                              OK
+  Google (sec)            8.8.4.4            NOERROR     16 ms     5.226.179.10                              OK
+  Cloudflare              1.1.1.1            NOERROR     31 ms     5.226.179.10                              OK
+  Cloudflare (sec)        1.0.0.1            NOERROR     15 ms     5.226.179.10                              OK
+  Quad9 (sem filtro)      9.9.9.10           NOERROR     35 ms     5.226.179.10                              OK
+  Verisign                64.6.64.6          NOERROR     172 ms    5.226.179.10                              OK
+  Quad9                   9.9.9.9            NOERROR     31 ms     5.226.179.10                              OK
+  OpenDNS                 208.67.222.222     NOERROR     31 ms     5.226.179.10                              OK
+  CleanBrowsing Sec       185.228.168.9      NOERROR     32 ms     5.226.179.10                              OK
+  AdGuard DNS             94.140.14.14       NOERROR     125 ms    5.226.179.10                              OK
+  Cloudflare Family       1.1.1.3            NOERROR     31 ms     5.226.179.10                              OK
+  OpenDNS Family          208.67.222.123     NOERROR     16 ms     5.226.179.10                              OK
+  CleanBrowsing Family    185.228.168.168    NOERROR     31 ms     5.226.179.10                              OK
+  AdGuard Family          94.140.14.15       NOERROR     125 ms    5.226.179.10                              OK
+  Comodo Secure           8.26.56.26         NOERROR     140 ms    5.226.179.10                              OK
+  Control D               76.76.2.0          NOERROR     16 ms     5.226.179.10                              OK
+  TIM Brasil              189.40.100.100     N/A         -         -                                         ? TIMEOUT
+  Claro Brasil            200.248.178.54     NOERROR     31 ms     5.226.179.10                              OK
+  Oi Brasil               186.224.0.18       N/A         -         -                                         ? TIMEOUT
+
+  IP de Consenso (servidores sem filtro): 5.226.179.10
+  Servidores com bloqueio/anomalia detectada: 2 / 19
+
+  >>> Domínio: xvideos.com
+--------------------------------------------------------------------------------
+  Consultando Google                 (8.8.8.8          ) ... NOERROR  [30 ms]
+  Consultando Google (sec)           (8.8.4.4          ) ... NOERROR  [17 ms]
+  Consultando Cloudflare             (1.1.1.1          ) ... NOERROR  [31 ms]
+  Consultando Cloudflare (sec)       (1.0.0.1          ) ... NOERROR  [15 ms]
+  Consultando Quad9 (sem filtro)     (9.9.9.10         ) ... NOERROR  [267 ms]
+  Consultando Verisign               (64.6.64.6        ) ... NOERROR  [140 ms]
+  Consultando Quad9                  (9.9.9.9          ) ... NOERROR  [63 ms]
+  Consultando OpenDNS                (208.67.222.222   ) ... NOERROR  [15 ms]
+  Consultando CleanBrowsing Sec      (185.228.168.9    ) ... NOERROR  [32 ms]
+  Consultando AdGuard DNS            (94.140.14.14     ) ... NOERROR  [125 ms]
+  Consultando Cloudflare Family      (1.1.1.3          ) ... NOERROR  [16 ms]
+  Consultando OpenDNS Family         (208.67.222.123   ) ... NOERROR  [31 ms]
+  Consultando CleanBrowsing Family   (185.228.168.168  ) ... NXDOMAIN  [31 ms]
+  Consultando AdGuard Family         (94.140.14.15     ) ... NOERROR  [125 ms]
+  Consultando Comodo Secure          (8.26.56.26       ) ... NOERROR  [298 ms]
+  Consultando Control D              (76.76.2.0        ) ... NOERROR  [16 ms]
+  Consultando TIM Brasil             (189.40.100.100   ) ... TIMEOUT
+  Consultando Claro Brasil           (200.248.178.54   ) ... NOERROR  [16 ms]
+  Consultando Oi Brasil              (186.224.0.18     ) ... TIMEOUT
+
+  Servidor                IP Servidor        RCODE       Tempo     IPs Retornados        Bloqueio?
+--------------------------------------------------------------------------------------------------------------
+  Google                  8.8.8.8            NOERROR     30 ms     89.222.127.4, 89.222.127.8, 89.222.12...  OK
+  Google (sec)            8.8.4.4            NOERROR     17 ms     89.222.127.4, 89.222.127.1, 89.222.12...  OK
+  Cloudflare              1.1.1.1            NOERROR     31 ms     89.222.127.6, 89.222.127.5, 89.222.12...  OK
+  Cloudflare (sec)        1.0.0.1            NOERROR     15 ms     89.222.127.10, 89.222.127.11, 89.222....  OK
+  Quad9 (sem filtro)      9.9.9.10           NOERROR     267 ms    89.222.127.9, 89.222.127.14, 89.222.1...  OK
+  Verisign                64.6.64.6          NOERROR     140 ms    89.222.127.4, 89.222.127.5, 89.222.12...  OK
+  Quad9                   9.9.9.9            NOERROR     63 ms     89.222.127.15, 89.222.127.9, 89.222.1...  OK
+  OpenDNS                 208.67.222.222     NOERROR     15 ms     89.222.127.5, 89.222.127.6, 89.222.12...  OK
+  CleanBrowsing Sec       185.228.168.9      NOERROR     32 ms     89.222.127.2, 89.222.127.8, 89.222.12...  OK
+  AdGuard DNS             94.140.14.14       NOERROR     125 ms    89.222.127.3, 89.222.127.1, 89.222.12...  OK
+  Cloudflare Family       1.1.1.3            NOERROR     16 ms     0.0.0.0                                   ? NULL_IP
+  OpenDNS Family          208.67.222.123     NOERROR     31 ms     146.112.61.106                            ? IP_DIVERGENTE
+  CleanBrowsing Family    185.228.168.168    NXDOMAIN    31 ms     -                                         ? NXDOMAIN
+  AdGuard Family          94.140.14.15       NOERROR     125 ms    94.140.14.35                              ? IP_DIVERGENTE
+  Comodo Secure           8.26.56.26         NOERROR     298 ms    89.222.127.1, 89.222.127.10, 89.222.1...  OK
+  Control D               76.76.2.0          NOERROR     16 ms     89.222.127.8, 89.222.127.4, 89.222.12...  OK
+  TIM Brasil              189.40.100.100     N/A         -         -                                         ? TIMEOUT
+  Claro Brasil            200.248.178.54     NOERROR     16 ms     89.222.127.15, 89.222.127.2, 89.222.1...  OK
+  Oi Brasil               186.224.0.18       N/A         -         -                                         ? TIMEOUT
+
+  IP de Consenso (servidores sem filtro): 89.222.127.4
+  Servidores com bloqueio/anomalia detectada: 6 / 19
+
+================================================================================
+  PARTE 1-B — AVALIAÇÃO DE DESEMPENHO (10 consultas — www.example.com)
+================================================================================
+  Testando Google (8.8.8.8) ...
+  Testando Google (sec) (8.8.4.4) ...
+  Testando Cloudflare (1.1.1.1) ...
+  Testando Cloudflare (sec) (1.0.0.1) ...
+  Testando Quad9 (sem filtro) (9.9.9.10) ...
+  Testando Verisign (64.6.64.6) ...
+  Testando Quad9 (9.9.9.9) ...
+  Testando OpenDNS (208.67.222.222) ...
+  Testando CleanBrowsing Sec (185.228.168.9) ...
+  Testando AdGuard DNS (94.140.14.14) ...
+  Testando Cloudflare Family (1.1.1.3) ...
+  Testando OpenDNS Family (208.67.222.123) ...
+  Testando CleanBrowsing Family (185.228.168.168) ...
+  Testando AdGuard Family (94.140.14.15) ...
+  Testando Comodo Secure (8.26.56.26) ...
+  Testando Control D (76.76.2.0) ...
+  Testando TIM Brasil (189.40.100.100) ...
+  Testando Claro Brasil (200.248.178.54) ...
+  Testando Oi Brasil (186.224.0.18) ...
+
+  #    Servidor                IP                  Mín(ms)   Méd(ms)   Máx(ms)    Receb.   Perda%
+-----------------------------------------------------------------------------------------------
+  1    Claro Brasil            200.248.178.54           15      23,4        31     10/10     0,0%
+  2    Google (sec)            8.8.4.4                  15      25,0        47     10/10     0,0%
+  3    CleanBrowsing Sec       185.228.168.9            16      25,0        32     10/10     0,0%
+  4    Cloudflare (sec)        1.0.0.1                  15      25,1        33     10/10     0,0%
+  5    OpenDNS                 208.67.222.222           16      25,1        32     10/10     0,0%
+  6    Cloudflare              1.1.1.1                  15      26,6        32     10/10     0,0%
+  7    Control D               76.76.2.0                15      26,6        32     10/10     0,0%
+  8    Cloudflare Family       1.1.1.3                  15      28,1        47     10/10     0,0%
+  9    OpenDNS Family          208.67.222.123           15      28,1        48     10/10     0,0%
+  10   CleanBrowsing Family    185.228.168.168          16      28,3        32     10/10     0,0%
+  11   Google                  8.8.8.8                  15      31,2        78     10/10     0,0%
+  12   Quad9 (sem filtro)      9.9.9.10                 31      39,1        47     10/10     0,0%
+  13   Quad9                   9.9.9.9                  31      40,7        63     10/10     0,0%
+  14   Comodo Secure           8.26.56.26              125     129,8       141     10/10     0,0%
+  15   AdGuard DNS             94.140.14.14            124     132,9       156     10/10     0,0%
+  16   Verisign                64.6.64.6               125     139,1       141     10/10     0,0%
+  17   AdGuard Family          94.140.14.15            124     165,8       470     10/10     0,0%
+  18   TIM Brasil              189.40.100.100            0       0,0         0      0/10   100,0%
+  19   Oi Brasil               186.224.0.18              0       0,0         0      0/10   100,0%
+
+================================================================================
+  PARTE 3 — DNS OVER TLS (DoT) — RFC 7858, Porta 853
+================================================================================
+
+  >>> 3-A: Consultas DoT para todos os domínios
+--------------------------------------------------------------------------------
+
+  Domínio: www.example.com
+  Servidor                IP                 RCODE       Tempo     IPs Retornados                  Bloqueio?
+----------------------------------------------------------------------------------------------------
+  Google (DoT)            8.8.8.8            NOERROR     406 ms    104.20.23.154, 172.66.147.243   OK
+  Cloudflare (DoT)        1.1.1.1            N/A         -         -                               ? TIMEOUT
+  Quad9 (DoT)             9.9.9.9            NOERROR     345 ms    172.66.147.243, 104.20.23.154   OK
+
+  Domínio: www.pucrs.br
+  Servidor                IP                 RCODE       Tempo     IPs Retornados                  Bloqueio?
+----------------------------------------------------------------------------------------------------
+  Google (DoT)            8.8.8.8            NOERROR     218 ms    104.18.20.134, 104.18.21.134    OK
+  Cloudflare (DoT)        1.1.1.1            N/A         -         -                               ? TIMEOUT
+  Quad9 (DoT)             9.9.9.9            NOERROR     344 ms    104.18.21.134, 104.18.20.134    OK
+
+  Domínio: internetbadguys.com
+  Servidor                IP                 RCODE       Tempo     IPs Retornados                  Bloqueio?
+----------------------------------------------------------------------------------------------------
+  Google (DoT)            8.8.8.8            NOERROR     219 ms    146.112.59.12                   OK
+  Cloudflare (DoT)        1.1.1.1            N/A         -         -                               ? TIMEOUT
+  Quad9 (DoT)             9.9.9.9            NOERROR     688 ms    146.112.59.12                   OK
+
+  Domínio: reddit.com
+  Servidor                IP                 RCODE       Tempo     IPs Retornados                  Bloqueio?
+----------------------------------------------------------------------------------------------------
+  Google (DoT)            8.8.8.8            NOERROR     219 ms    151.101.193.140, 151.101.129.140, 151.101.1.140, 151.101.65.140  OK
+  Cloudflare (DoT)        1.1.1.1            N/A         -         -                               ? TIMEOUT
+  Quad9 (DoT)             9.9.9.9            NOERROR     312 ms    151.101.1.140, 151.101.65.140, 151.101.193.140, 151.101.129.140  OK
+
+  Domínio: tinder.com
+  Servidor                IP                 RCODE       Tempo     IPs Retornados                  Bloqueio?
+----------------------------------------------------------------------------------------------------
+  Google (DoT)            8.8.8.8            NOERROR     203 ms    52.84.150.39, 52.84.150.60, 52.84.150.55, 52.84.150.54  OK
+  Cloudflare (DoT)        1.1.1.1            N/A         -         -                               ? TIMEOUT
+  Quad9 (DoT)             9.9.9.9            NOERROR     344 ms    52.84.150.60, 52.84.150.55, 52.84.150.39, 52.84.150.54  OK
+
+  Domínio: polymarket.com
+  Servidor                IP                 RCODE       Tempo     IPs Retornados                  Bloqueio?
+----------------------------------------------------------------------------------------------------
+  Google (DoT)            8.8.8.8            NOERROR     220 ms    64.239.109.1                    OK
+  Cloudflare (DoT)        1.1.1.1            N/A         -         -                               ? TIMEOUT
+  Quad9 (DoT)             9.9.9.9            NOERROR     344 ms    64.239.109.1                    OK
+
+  Domínio: www.piratebay.org
+  Servidor                IP                 RCODE       Tempo     IPs Retornados                  Bloqueio?
+----------------------------------------------------------------------------------------------------
+  Google (DoT)            8.8.8.8            NOERROR     218 ms    104.21.50.243, 172.67.215.3     OK
+  Cloudflare (DoT)        1.1.1.1            N/A         -         -                               ? TIMEOUT
+  Quad9 (DoT)             9.9.9.9            NOERROR     360 ms    104.21.50.243, 172.67.215.3     OK
+
+  Domínio: bet365.com
+  Servidor                IP                 RCODE       Tempo     IPs Retornados                  Bloqueio?
+----------------------------------------------------------------------------------------------------
+  Google (DoT)            8.8.8.8            NOERROR     234 ms    5.226.179.10                    OK
+  Cloudflare (DoT)        1.1.1.1            N/A         -         -                               ? TIMEOUT
+  Quad9 (DoT)             9.9.9.9            NOERROR     359 ms    5.226.179.10                    OK
+
+  Domínio: xvideos.com
+  Servidor                IP                 RCODE       Tempo     IPs Retornados                  Bloqueio?
+----------------------------------------------------------------------------------------------------
+  Google (DoT)            8.8.8.8            NOERROR     189 ms    89.222.127.14, 89.222.127.7, 89.222.127.8, 89.222.127.15, 89.222.127.12, 89.222.127.3, 89.222.127.5, 89.222.127.4, 89.222.127.13, 89.222.127.1, 89.222.127.2, 89.222.127.9, 89.222.127.11, 89.222.127.10, 89.222.127.6  OK
+  Cloudflare (DoT)        1.1.1.1            N/A         -         -                               ? TIMEOUT
+  Quad9 (DoT)             9.9.9.9            NOERROR     344 ms    89.222.127.8, 89.222.127.3, 89.222.127.14, 89.222.127.5, 89.222.127.13, 89.222.127.4, 89.222.127.11, 89.222.127.6, 89.222.127.15, 89.222.127.9, 89.222.127.10, 89.222.127.12, 89.222.127.1, 89.222.127.2, 89.222.127.7  OK
+
+  >>> 3-B: Comparação de Desempenho UDP vs DoT — 10 consultas — www.example.com
+--------------------------------------------------------------------------------
+  Servidor                Protocolo   Mín(ms)   Méd(ms)   Máx(ms)   Perda%
+--------------------------------------------------------------------------------
+  Google                  UDP             15      25,0        32     0,0%
+  Google                  DoT            203     209,5       219     0,0%
+--------------------------------------------------------------------------------
+  Cloudflare              UDP             15      26,6        32     0,0%
+  Cloudflare              DoT              0       0,0         0   100,0%
+--------------------------------------------------------------------------------
+  Quad9                   UDP             31      42,2        62     0,0%
+  Quad9                   DoT            297     323,8       329     0,0%
+--------------------------------------------------------------------------------
+
+  NOTA: O DoT envolve handshake TLS (~1-3 RTTs extras), resultando em latência
+  maior que o UDP, mas as consultas são completamente cifradas (inobserváveis
+  por ISPs/intermediários). O conteúdo trafegado na porta 853 é opaco ao
+  Wireshark, ao contrário das consultas UDP na porta 53.
+
+================================================================================
+  FIM DA ANÁLISE
+================================================================================
